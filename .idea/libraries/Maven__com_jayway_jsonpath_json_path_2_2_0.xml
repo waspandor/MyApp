@@ -8,6 +8,7 @@
     </JAVADOC>
     <SOURCES>
       <root url="jar://$MAVEN_REPOSITORY$/com/jayway/jsonpath/json-path/2.2.0/json-path-2.2.0-sources.jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/mysql-connector-java-5.1.39.zip!/mysql-connector-java-5.1.39/src" />
     </SOURCES>
   </library>
 </component>

@@ -1,4 +1,4 @@
-package sample;
+package unsorted;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -10,7 +10,6 @@ import java.util.Map.Entry;
 
 import com.jayway.jsonpath.Configuration;
 import com.jayway.jsonpath.JsonPath;
-
 
 
 @SuppressWarnings("unused")
@@ -129,20 +128,20 @@ public class RestCalls {
 
 
 
-
-	public void return_follwing_json(String arg1) throws Throwable {
-
-		System.out.println("current json "+ Postcode.getResponse());
-
-		Object document = Configuration.defaultConfiguration().jsonProvider().parse(Postcode.getResponse());
-		String theSavedJson = JsonPath.read(document, arg1).toString();
-		System.out.println("The following Json String has been saved statically ");
-		System.out.println(theSavedJson);
-
-		theSavedJson = (theSavedJson.substring(1, theSavedJson.length()-1));
-		savedJsonDocument = Configuration.defaultConfiguration().jsonProvider().parse(theSavedJson);
-	}
-	
+//
+//	public void return_follwing_json(String arg1) throws Throwable {
+//
+//		System.out.println("current json "+ Postcode.getResponse());
+//
+//		Object document = Configuration.defaultConfiguration().jsonProvider().parse(Postcode.getResponse());
+//		String theSavedJson = JsonPath.read(document, arg1).toString();
+//		System.out.println("The following Json String has been saved statically ");
+//		System.out.println(theSavedJson);
+//
+//		theSavedJson = (theSavedJson.substring(1, theSavedJson.length()-1));
+//		savedJsonDocument = Configuration.defaultConfiguration().jsonProvider().parse(theSavedJson);
+//	}
+//
 	
 	
 	

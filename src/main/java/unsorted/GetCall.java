@@ -1,38 +1,48 @@
-package sample;
+package unsorted;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URISyntaxException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
 import org.apache.http.HttpResponse;
+import org.apache.http.NameValuePair;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.utils.URIBuilder;
 import org.apache.http.impl.client.HttpClientBuilder;
+import org.apache.http.message.BasicNameValuePair;
 
-public class Postcode {
+public class GetCall {
 
 	static String USER_AGENT = "Mozilla/5.0";
 	public static Map<String, String> param = new HashMap<String, String>();
-	static String postcodeBaseUrl = "https://api.ideal-postcodes.co.uk/v1/postcodes/";
-	static String postcodeApiKey = "ak_ir1vwhr4XXl0E3InWHZf4pSsyUYRC";
-	static String postcode = "ID11QD";
-	static String response;
-
 	
 	
 	
 	public static void main (String arge[]) throws ClientProtocolException, IOException, URISyntaxException{
-
-		addParam("api_key", postcodeApiKey);
-		getCall(postcodeBaseUrl+postcode);
+		
+		
+		addParam("app_id", "ziKwjnsbyEbJf9RHXZzU");
+		addParam("app_code", "QGSQs3Y3w_D3HhJBR9MrPg");
+		
+		addParam("waypoint0", "51.4899488390558");
+		addParam("waypoint1", "-0.208644362766368");
+		//addParam("departure", "now");
+		getCall("https://route.cit.api.here.com/routing/7.2/calculateroute.json");
 		
 	}
+	
+	
+	
+	
 	
 
 	public static void getCall(String endpoint) throws ClientProtocolException, IOException, URISyntaxException {
@@ -40,12 +50,8 @@ public class Postcode {
 		generateMap(param);
 		String url = endpoint;
 
-//		URIBuilder builder = new URIBuilder();
-//		builder.setPath(url);
-
-		URIBuilder builder = new URIBuilder(endpoint);
-
-
+		URIBuilder builder = new URIBuilder();
+		builder.setPath(url);
 
 		for (Entry<String, String> entry : param.entrySet()) {
 			builder.setParameter(entry.getKey(), entry.getValue());
@@ -56,6 +62,7 @@ public class Postcode {
 		HttpClient client = HttpClientBuilder.create().build();
 		HttpGet get = new HttpGet(builder.build());
 
+		// add header
 		get.setHeader("User-Agent", USER_AGENT);
 
 		HttpResponse response = client.execute(get);
@@ -69,16 +76,13 @@ public class Postcode {
 		while ((line = rd.readLine()) != null) {
 			result.append(line);
 		}
-//		System.out.println("");
-//		System.out.println(result.toString());
-		setResponse(result.toString());
+		System.out.println("");
+		System.out.println(result.toString());
+		param.clear();
 
 	}
 	
 	
-
-
-
 
 	public static void addParam(String name, String value) {
 
@@ -99,17 +103,5 @@ public class Postcode {
 		System.out.println("");
 
 	}
-	
-	public static String getResponse() {
-		return response;
-	}
-
-
-	public static void setResponse(String response) {
-		Postcode.response = response;
-	}
-
-	
-
 
 }

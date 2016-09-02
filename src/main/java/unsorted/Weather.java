@@ -1,4 +1,4 @@
-package sample;
+package unsorted;
 
 public class Weather {
 
@@ -10,7 +10,7 @@ public class Weather {
 
 	public String weatherUrl() {
 
-		String url = Weather.weatherBaseUrl+RestCalls.returnString()+".json";
+		String url = Weather.weatherBaseUrl+ RestCalls.returnString()+".json";
 		return url;
 	}
 }
