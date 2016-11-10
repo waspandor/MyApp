@@ -5,8 +5,8 @@ package latest;
  */
 public class Vehicle {
 
-    static String make;
-    static int size;
+    String make;
+    int size;
 
 
     public void returnVehicleDetails(){

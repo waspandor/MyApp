@@ -9,26 +9,29 @@ public class CarPark {
     int remainingSpaces = totalSpaces;
 
     Vehicle[] cars = new Vehicle[totalSpaces];
+
     int currentVehicle = 0;
 
 
+    public void checkAndParkIfSpace(String carName, int size) {
 
-    public void checkAndParkIfSpace(Vehicle car, String carName, int size) {
+        Vehicle car = new Vehicle();
 
-        car = cars[currentVehicle];
         car.make = carName;
         car.size = size;
 
-        if (car.size  <= 2) {
+
+        if (car.size <= 2) {
 
             if (remainingSpaces < car.size) {
                 System.out.println("Car Park is full");
                 System.out.println(remainingSpaces + " Spaces left");
             } else
-                parkCarAndAddVehicle(car.size);
 
-        }
-        else{
+                cars[currentVehicle] = car;
+                parkCarAndAddVehicle(cars[currentVehicle].size);
+
+        } else {
             System.out.println("Vehicle is too big");
         }
 
@@ -43,27 +46,27 @@ public class CarPark {
             remainingSpaces--;
 
         }
-        System.out.println("There are now "+ remainingSpaces + " spaces left");
+        System.out.println("There are now " + remainingSpaces + " spaces left");
+        cars[currentVehicle].returnVehicleDetails();
         currentVehicle++;
+
     }
 
     public int checkAvailableSpaces() {
-
         return remainingSpaces;
 
     }
 
-    public void carDetails(){
+    public void carDetails() {
 
-        for (int i = 0; i <currentVehicle; i++){
-
+        for (int i = 0; i < currentVehicle; i++) {
             cars[i].returnVehicleDetails();
         }
 
     }
+}
 
 
-    }
 
 
 
