@@ -7,16 +7,13 @@ public class CarPark {
 
     int totalSpaces = 10;
     int remainingSpaces = totalSpaces;
-
     Vehicle[] cars = new Vehicle[totalSpaces];
-
     int currentVehicle = 0;
 
 
     public void checkAndParkIfSpace(String carName, int size) {
 
         Vehicle car = new Vehicle();
-
         car.make = carName;
         car.size = size;
 

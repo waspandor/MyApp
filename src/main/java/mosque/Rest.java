@@ -31,24 +31,11 @@ public class Rest {
     Object savedJsonDocument = null;
 
 
-    public static void main (String arge[]) throws ClientProtocolException, IOException, URISyntaxException{
-
-        addParam("api_key", postcodeApiKey);
-        getCall(postcodeBaseUrl+postcode);
-
-    }
-
-
-    public static void getCall(String endpoint) throws ClientProtocolException, IOException, URISyntaxException {
+    public  void getCall(String endpoint) throws  IOException, URISyntaxException {
 
         generateMap(param);
-        String url = endpoint;
-
-//		URIBuilder builder = new URIBuilder();
-//		builder.setPath(url);
 
         URIBuilder builder = new URIBuilder(endpoint);
-
 
         for (Entry<String, String> entry : param.entrySet()) {
             builder.setParameter(entry.getKey(), entry.getValue());
@@ -75,18 +62,15 @@ public class Rest {
 //		System.out.println("");
 //		System.out.println(result.toString());
         setResponse(result.toString());
-
     }
 
 
     public static void addParam(String name, String value) {
-
         param.put(name, value);
     }
 
     public static void generateMap(Map<String, String> paramMap) {
         param.putAll(paramMap);
-
     }
 
     public static void printMap() {
@@ -94,12 +78,11 @@ public class Rest {
         for (Entry<String, String> entry : param.entrySet()) {
             System.out.println(entry.getKey() + " - " + entry.getValue());
         }
-
         System.out.println("");
 
     }
 
-    public static String getResponse() {
+    public  String getResponse() {
         return response;
     }
 
@@ -107,8 +90,6 @@ public class Rest {
     public static void setResponse(String response) {
         Rest.response = response;
     }
-
-
 
 
     public String returnJson(String response, String jsonValue ) throws Throwable {
@@ -122,19 +103,17 @@ public class Rest {
 
     }
 
-    public void return_follwing_json(String arg1) throws Throwable {
-
-        System.out.println("current json "+ Rest.getResponse());
-
-        Object document = Configuration.defaultConfiguration().jsonProvider().parse(Rest.getResponse());
-        String theSavedJson = JsonPath.read(document, arg1).toString();
-        System.out.println("The following Json String has been saved statically ");
-        System.out.println(theSavedJson);
-
-        theSavedJson = (theSavedJson.substring(1, theSavedJson.length()-1));
-        savedJsonDocument = Configuration.defaultConfiguration().jsonProvider().parse(theSavedJson);
-    }
-
-
+//    public void return_follwing_json(String arg1) throws Throwable {
+//
+//        System.out.println("current json "+ Rest.getResponse());
+//
+//        Object document = Configuration.defaultConfiguration().jsonProvider().parse(Rest.getResponse());
+//        String theSavedJson = JsonPath.read(document, arg1).toString();
+//        System.out.println("The following Json String has been saved statically ");
+//        System.out.println(theSavedJson);
+//
+//        theSavedJson = (theSavedJson.substring(1, theSavedJson.length()-1));
+//        savedJsonDocument = Configuration.defaultConfiguration().jsonProvider().parse(theSavedJson);
+//    }
 
 }

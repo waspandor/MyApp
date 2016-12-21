@@ -31,10 +31,10 @@ public class Rest {
     Object savedJsonDocument = null;
 
 
-    public static void main (String arge[]) throws ClientProtocolException, IOException, URISyntaxException{
+    public static void main(String arge[]) throws ClientProtocolException, IOException, URISyntaxException {
 
         addParam("api_key", postcodeApiKey);
-        getCall(postcodeBaseUrl+postcode);
+        getCall(postcodeBaseUrl + postcode);
 
     }
 
@@ -62,7 +62,7 @@ public class Rest {
         get.setHeader("User-Agent", USER_AGENT);
 
         HttpResponse response = client.execute(get);
-        System.out.println("Response Code : "+ response.getStatusLine().getStatusCode());
+        System.out.println("Response Code : " + response.getStatusLine().getStatusCode());
 
         BufferedReader rd = new BufferedReader(new InputStreamReader(response
                 .getEntity().getContent()));
@@ -109,9 +109,7 @@ public class Rest {
     }
 
 
-
-
-    public String returnJson(String response, String jsonValue ) throws Throwable {
+    public String returnJson(String response, String jsonValue) throws Throwable {
 
         Object document = savedJsonDocument;
         document = Configuration.defaultConfiguration().jsonProvider().parse(response);
@@ -124,17 +122,16 @@ public class Rest {
 
     public void return_follwing_json(String arg1) throws Throwable {
 
-        System.out.println("current json "+ Rest.getResponse());
+        System.out.println("current json " + Rest.getResponse());
 
         Object document = Configuration.defaultConfiguration().jsonProvider().parse(Rest.getResponse());
         String theSavedJson = JsonPath.read(document, arg1).toString();
         System.out.println("The following Json String has been saved statically ");
         System.out.println(theSavedJson);
 
-        theSavedJson = (theSavedJson.substring(1, theSavedJson.length()-1));
+        theSavedJson = (theSavedJson.substring(1, theSavedJson.length() - 1));
         savedJsonDocument = Configuration.defaultConfiguration().jsonProvider().parse(theSavedJson);
     }
-
 
 
 }

@@ -15,9 +15,7 @@ public class Inteface {
 		System.out.println("Please enter your postcode:");
 		s = in.nextLine();
 
-		barbers.findLocalBarbers(s);
-
-
+		barbers.findLocalMosques(s);
 
 		System.out.println("");
 		System.out.println("Please type in a selection:");

@@ -1,7 +1,5 @@
 package mosque;
 
-import java.lang.reflect.Array;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -10,100 +8,60 @@ import java.util.List;
  */
 public class Barbers {
 
-    static  String locationValue;
-    Rest restCall = new Rest();
-    ArrayList<String> mosques = new ArrayList<String>();
+    String locationValue;
+    Rest rest = new Rest();
+    PostCode postcode = new PostCode();
 
+    public void findLocalMosques(String userPostcode) throws Throwable {
 
+        locationValue = postcode.getLocationFromPostcode(userPostcode);
 
+        String returnLocalMosques = GoogleApi.googleApiBaseUrl + "place/nearbysearch/json?location="
+                + locationValue + "&rankby=distance&type=mosque&key=" + GoogleApi.apiKey;
 
+        rest.getCall(returnLocalMosques);
 
+        String listOfMosques = rest.returnJson(rest.getResponse(), "results[*].name");
+        String str = (listOfMosques.replace("\"", "").replace("[", "").replace("]", ""));
+        List<String> listAllMosques = Arrays.asList(str.split("\\s*,\\s*"));
 
-
-    public  void findLocalBarbers(String postCode) throws Throwable{
-
-        restCall.getCall("http://api.postcodes.io/postcodes/"+postCode);
-
-        if (restCall.getResponse().contains("Postcode not found"))
-            System.out.println(restCall.returnJson(restCall.getResponse(),"error"));
-
-        else {
-            locationValue = restCall.returnJson(restCall.getResponse(), "result.latitude")
-                    + ","
-                    + restCall.returnJson(restCall.getResponse(), "result.longitude");
-
-    //        System.out.println("Location Value");
-      //      System.out.println(locationValue);
-
-            String test = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location="
-                    + locationValue
-                    + "&rankby=distance&type=mosque&key=AIzaSyCcrqYTwcNLIEkBwTaYDg6Jt6g7Q0jbDRQ";
-
-  //          System.out.println(test);
-            restCall.getCall(test);
-
-//            System.out.println("");
-  //          System.out.println("Json Response");
-
-            //System.out.println(restCall.getResponse());
-            //System.out.println(restCall.returnJson(restCall.getResponse(), "results[*].name"));
-
-            String listOfMosques = restCall.returnJson(restCall.getResponse(), "results[*].name");
-
-            String str = (listOfMosques.replace("\"", "").replace("[","").replace("}",""));
-
-            //String[] mosques = listOfMosques.split();
-
-            List<String> items = Arrays.asList(str.split("\\s*,\\s*"));
-
-
-
-            for (String temp : items) {
-                System.out.println(temp);
-            }
-
-
-
-
+        for (String singleMosque : listAllMosques) {
+            System.out.println(singleMosque);
         }
-
     }
 
-
-    public  void returnMoreInfo(String keyword) throws Throwable{
+    public void returnMoreInfo(String keyword) throws Throwable {
 
         String replaceText = keyword;
         String newKeyword = replaceText.replace(' ', '+');
 
-       // System.out.println(newKeyword);
+        // System.out.println(newKeyword);
 
-        String test1 =  "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location="
+        String test1 = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location="
                 + locationValue
-                + "&keyword="+newKeyword+"&type=mosque&key=AIzaSyCcrqYTwcNLIEkBwTaYDg6Jt6g7Q0jbDRQ";
-      //  System.out.println(test1);
-        restCall.getCall(test1);
+                + "&keyword=" + newKeyword + "&type=mosque&key=AIzaSyCcrqYTwcNLIEkBwTaYDg6Jt6g7Q0jbDRQ";
 
-    //    System.out.println(restCall.getResponse());
+        rest.getCall(test1);
 
-        System.out.println("Name: "+restCall.returnJson(restCall.getResponse(), ".name"));
-        System.out.println("Open Now: "+restCall.returnJson(restCall.getResponse(), ".opening_hours.open_now"));
-        System.out.println("Rating: "+ restCall.returnJson(restCall.getResponse(), ".rating"));
-       // System.out.println("Id: "+restCall.returnJson(restCall.getResponse(), ".place_id"));
-        System.out.println("Address "+restCall.returnJson(restCall.getResponse(), ".vicinity"));
+        System.out.println("Name: " + rest.returnJson(rest.getResponse(), ".name"));
+        System.out.println("Open Now: " + rest.returnJson(rest.getResponse(), ".opening_hours.open_now"));
+        System.out.println("Rating: " + rest.returnJson(rest.getResponse(), ".rating"));
+        System.out.println("Id: " + rest.returnJson(rest.getResponse(), ".place_id"));
+        System.out.println("Address " + rest.returnJson(rest.getResponse(), ".vicinity"));
 
 
-        String placeId = restCall.returnJson(restCall.getResponse(), ".place_id");
-        placeId = placeId.substring(placeId.indexOf("[")+2,placeId.indexOf("]")-1);
-    //    System.out.println(placeId);
+        String placeId = rest.returnJson(rest.getResponse(), ".place_id");
+        placeId = placeId.substring(placeId.indexOf("[") + 2, placeId.indexOf("]") - 1);
+        //    System.out.println(placeId);
 
-        String reference = restCall.returnJson(restCall.getResponse(), ".reference");
-        reference = reference.substring(reference.indexOf("[")+2,reference.indexOf("]")-2);
-     //   System.out.println(reference);
+        String reference = rest.returnJson(rest.getResponse(), ".reference");
+        reference = reference.substring(reference.indexOf("[") + 2, reference.indexOf("]") - 2);
+        System.out.println(reference);
 
         String moreInfo = "https://maps.googleapis.com/maps/api/place/details/json?placeid=" + placeId + "&key=AIzaSyCcrqYTwcNLIEkBwTaYDg6Jt6g7Q0jbDRQ";
 
-        restCall.getCall(moreInfo);
-    //    System.out.println(restCall.getResponse());
+        rest.getCall(moreInfo);
+        System.out.println(rest.getResponse());
     }
 
 }
