@@ -39,27 +39,28 @@ public class Barbers {
 
         rest.getCall(returnMoreinfo);
 
-//       System.out.println("Name: " + rest.returnJson(rest.getResponse(), ".name"));
+        String name = rest.returnJson(rest.getResponse(), ".name");
+        System.out.println(formatJsonValue(name));
 //       System.out.println("Open Now: " + rest.returnJson(rest.getResponse(), ".opening_hours.open_now"));
 //       System.out.println("Rating: " + rest.returnJson(rest.getResponse(), ".rating"));
 //       System.out.println("Id: " + rest.returnJson(rest.getResponse(), ".place_id"));
-//       System.out.println("Address " + rest.returnJson(rest.getResponse(), ".vicinity"));
+        String address = rest.returnJson(rest.getResponse(), ".vicinity");
+        System.out.println(formatJsonValue(address));
 
         String placeId = rest.returnJson(rest.getResponse(), ".place_id");
-        System.out.println(formatJsonValue(placeId));
+   //     System.out.println(formatJsonValue(placeId));
 
         String reference = rest.returnJson(rest.getResponse(), ".reference");
-        System.out.println(formatJsonValue(reference));
+//        System.out.println(formatJsonValue(reference));
 //
-//       String moreInfo = "https://maps.googleapis.com/maps/api/place/details/json?placeid=" + placeId + "&key=AIzaSyCcrqYTwcNLIEkBwTaYDg6Jt6g7Q0jbDRQ";
+    //   String moreInfo = "https://maps.googleapis.com/maps/api/place/details/json?placeid=" + placeId + "&key=AIzaSyCcrqYTwcNLIEkBwTaYDg6Jt6g7Q0jbDRQ";
 //
-//       rest.getCall(moreInfo);
-//       System.out.println(rest.getResponse());
+ //     rest.getCall(moreInfo);
+   //    System.out.println(rest.getResponse());
     }
 
 
-
-    public String formatJsonValue(String jsonValue){
+    public String formatJsonValue(String jsonValue) {
 
         return jsonValue.replace("[", "").replace("]", "").replace("\"", "");
     }

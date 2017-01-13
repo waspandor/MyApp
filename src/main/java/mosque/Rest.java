@@ -49,7 +49,7 @@ public class Rest {
         get.setHeader("User-Agent", USER_AGENT);
 
         HttpResponse response = client.execute(get);
-        System.out.println("Response Code : "+ response.getStatusLine().getStatusCode());
+ //       System.out.println("Response Code : "+ response.getStatusLine().getStatusCode());
 
         BufferedReader rd = new BufferedReader(new InputStreamReader(response
                 .getEntity().getContent()));

@@ -23,6 +23,15 @@ public class Inteface {
 
 		barbers.returnMoreInfo(s);
 
+		Mosque mosque = new Mosque(s);
+		mosque.test();
+		mosque.returnAll();
+
+//		System.out.println(mosque.getFajr());
+//		System.out.println(mosque.getZuhr());
+//		System.out.println(mosque.getAsr());
+//		System.out.println(mosque.getMaghrib());
+//		System.out.println(mosque.getEsha());
 	}
 
 
