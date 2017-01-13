@@ -25,6 +25,7 @@ public class Mosque {
 
     }
 
+    //
     public String nextPrayer() {
         return "";
     }
