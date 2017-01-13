@@ -60,7 +60,7 @@ public class Mosque {
 
         for (int i = 0; i < prayer.length; i++) {
 
-            System.out.println( prayer[i].getTime());
+            System.out.println(prayer[i].getTime());
         }
     }
 }
