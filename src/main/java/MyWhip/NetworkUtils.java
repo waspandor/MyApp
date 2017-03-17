@@ -1,4 +1,4 @@
-package mosque;
+package MyWhip;
 
 import com.jayway.jsonpath.Configuration;
 import com.jayway.jsonpath.JsonPath;
@@ -17,13 +17,13 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 
-public class Rest {
+public class NetworkUtils {
 
     static String USER_AGENT = "Mozilla/5.0";
     public static Map<String, String> param = new HashMap<String, String>();
-    static String postcodeBaseUrl = "https://api.ideal-postcodes.co.uk/v1/postcodes/";
-    static String postcodeApiKey = "ak_ir1vwhr4XXl0E3InWHZf4pSsyUYRC";
-    static String postcode = "ID11QD";
+    static String postcodeBaseUrl = "http://www.regcheck.org.uk/";
+    static String username = "waspandor";
+    static String postcode = "YYO7XHH";
 
     static int responseCode;
     static String response;
@@ -31,9 +31,9 @@ public class Rest {
     Object savedJsonDocument = null;
 
 
-    public  void getCall(String endpoint) throws  IOException, URISyntaxException {
+    public String get(String endpoint) throws  IOException, URISyntaxException {
 
-        generateMap(param);
+   //     generateMap(param);
 
         URIBuilder builder = new URIBuilder(endpoint);
 
@@ -49,7 +49,6 @@ public class Rest {
         get.setHeader("User-Agent", USER_AGENT);
 
         HttpResponse response = client.execute(get);
- //       System.out.println("Response Code : "+ response.getStatusLine().getStatusCode());
 
         BufferedReader rd = new BufferedReader(new InputStreamReader(response
                 .getEntity().getContent()));
@@ -59,9 +58,8 @@ public class Rest {
         while ((line = rd.readLine()) != null) {
             result.append(line);
         }
-//		System.out.println("");
-//		System.out.println(result.toString());
         setResponse(result.toString());
+        return getResponse();
     }
 
 
@@ -88,16 +86,16 @@ public class Rest {
 
 
     public static void setResponse(String response) {
-        Rest.response = response;
+        NetworkUtils.response = response;
     }
 
 
-    public String returnJson(String response, String jsonValueToExtract ) throws Throwable {
+    public String returnJson(String response, String jsonValue ) throws Throwable {
 
         Object document = savedJsonDocument;
         document = Configuration.defaultConfiguration().jsonProvider().parse(response);
 
-        String test = JsonPath.read(document, jsonValueToExtract).toString();
+        String test = JsonPath.read(document, jsonValue).toString();
         //System.out.println("Print json value -> " + test);
         return test;
 
